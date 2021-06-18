@@ -18,9 +18,14 @@
   },
   "homepage": "https://github.com/Damir-N/NodeJS-sharpdev-learning#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.12.14"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.12",
     "@types/node": "^15.12.2",
     "eslint": "^7.28.0",

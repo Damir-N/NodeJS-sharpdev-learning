@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
+export interface UserDocument extends mongoose.Document{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    balance: string; 
+} 
+
+const UserSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -30,13 +38,25 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: 0, 
     },
-})
+}, 
+{timestamps: true}
+);
 
-// userSchema.pre('save', async (next) => {
-//     const salt = await bcrypt.genSalt();
-//     // @ts-ignore
-//     this.password = await bcrypt.hash(this.password, salt);  
-//     next();
-// })
+UserSchema.pre('save', async function (next: mongoose.HookNextFunction) {
 
-export default mongoose.model('users', userSchema);
+    let user = this as UserDocument;
+
+    if(!user.isModified('password')) return next();
+
+    const salt = await bcrypt.genSalt(10);
+
+    const hash = await bcrypt.hash(user.password, salt);
+
+    user.password = hash;
+
+    return next();
+});
+
+const User = mongoose.model<UserDocument>('users', UserSchema);
+
+export default User;

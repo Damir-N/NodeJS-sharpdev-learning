@@ -10,12 +10,15 @@ const connectionString = process.env.DB_CONNECTION_STRING;
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/', routes);
 
 if(connectionString){
     mongoose.connect(connectionString, 
         {
             useNewUrlParser: true,
+            useCreateIndex: true,
             useUnifiedTopology: true
         }, 
         () => {

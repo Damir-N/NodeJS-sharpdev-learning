@@ -1,9 +1,9 @@
 import express from "express";
-import userController from "../../controllers/users";
+import { getAllUsersHandler } from "../../controllers/users.controller";
 
 const usersRoutes = express.Router();
 
-usersRoutes.get('/', userController.getAll)
+usersRoutes.get('/', getAllUsersHandler)
 
 usersRoutes.get('/me', (req,res) => {
     res.status(200).send('Get current user info');

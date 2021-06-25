@@ -9,3 +9,11 @@ export const createNewUser = async (data: DocumentDefinition<UserDocument>) =>{
         throw new Error(err);
     }
 }
+
+export const findUserByEmail = async (email: string) => {
+    try{
+        return await User.findOne((u: UserDocument) => u.email === email);
+    }catch(err){
+        throw new Error(err.message);
+    }
+}

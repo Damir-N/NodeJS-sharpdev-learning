@@ -1,11 +1,10 @@
 import express from "express";
+import { login } from "../../controllers/auth.controller";
 import { addNewUserHandler } from "../../controllers/users.controller";
 
 const authRoutes = express.Router();
 
-authRoutes.post('/login', (req,res) => {
-    res.status(200).send('Start a new session');
-})
+authRoutes.post('/login', login)
 
 authRoutes.post('/signup', addNewUserHandler)
 
